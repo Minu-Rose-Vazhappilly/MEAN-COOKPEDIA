@@ -23,54 +23,16 @@
             <a routerLink="/recipes">View All</a>
         </div>
         <div class="row my-3">
-            <div class="col-lg-4">
+            @for (recipe of allRecipes; track $index){
+                <div class="col-lg-4">
                 <div class="p-3">
-                    <img src="https://hostessatheart.com/wp-content/uploads/2014/11/Chocolate-Pudding-Trifle-square-no-wm.jpg" class="card-img-top" alt="recipe">
+                    <img [src]="recipe.image" class="card-img-top" alt="recipe">
                     <div class="card-body">
-                        <div class="card-title">recipe-name</div>
+                        <div class="card-title">{{recipe.name}}</div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="p-3">
-                    <img src="https://hostessatheart.com/wp-content/uploads/2014/11/Chocolate-Pudding-Trifle-square-no-wm.jpg" class="card-img-top" alt="recipe">
-                    <div class="card-body">
-                        <div class="card-title">recipe-name</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="p-3">
-                    <img src="https://hostessatheart.com/wp-content/uploads/2014/11/Chocolate-Pudding-Trifle-square-no-wm.jpg" class="card-img-top" alt="recipe">
-                    <div class="card-body">
-                        <div class="card-title">recipe-name</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="p-3">
-                    <img src="https://hostessatheart.com/wp-content/uploads/2014/11/Chocolate-Pudding-Trifle-square-no-wm.jpg" class="card-img-top" alt="recipe">
-                    <div class="card-body">
-                        <div class="card-title">recipe-name</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="p-3">
-                    <img src="https://hostessatheart.com/wp-content/uploads/2014/11/Chocolate-Pudding-Trifle-square-no-wm.jpg" class="card-img-top" alt="recipe">
-                    <div class="card-body">
-                        <div class="card-title">recipe-name</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="p-3">
-                    <img src="https://hostessatheart.com/wp-content/uploads/2014/11/Chocolate-Pudding-Trifle-square-no-wm.jpg" class="card-img-top" alt="recipe">
-                    <div class="card-body">
-                        <div class="card-title">recipe-name</div>
-                    </div>
-                </div>
-            </div>
+            </div>}
+           
         </div>
     </div>
     <!-- recipe banner -->
@@ -99,9 +61,14 @@
 
       </div>
       <!-- testimony -->
-       <div class="my" text-center>
+       <div class="my-5 text-center" >
         <h1>Client Testimonials</h1>
-        
+        <div class="scroll-text my-5">
+            <div class="border rounded p-3 shadow w-100 text-wrap">
+                <span class="fw-bold">Client Name</span>
+                <p>Mesaage</p>
+            </div>
+        </div>
        </div>
 
 </div>
