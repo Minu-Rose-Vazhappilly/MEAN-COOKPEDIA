@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-lg-4">
             <h4>Filter</h4>
-            <button class="btn mt-5">All <br>
+            <button (click)="getAllRecipes()" class="btn mt-5">All  </button><br>
                 <!-- cuisine -->
                 <button class="btn dropdown-toggle" type="button" data-bs-toggle="collapse"
                     data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
@@ -11,7 +11,9 @@
                 </button>
                 <div class="collapse my-2" id="collapseExample">
                     <!-- duplicate cuise -->
-                     <button class="btn">cuisine</button>
+                    @for (cuisine of cuisineArray; track $index) {
+  <button type="button" (click)="filterRecipe('cuisine', cuisine)" class="btn">{{ cuisine }}</button>
+}
                 </div>
                 <!-- meal type -->
                 <br>
@@ -22,10 +24,10 @@
                 </button>
                 <div class="collapse my-2" id="collapseExample1">
                     <!-- duplicate cuise -->
-                     <button class="btn">meal</button>
+                    @for (meal of mealTypeArray; track $index) { <button (click)="filterRecipe('mealType', meal)" type="button" class="btn">{{meal}}</button>}
                 </div>
 
-            </button>
+           
         </div>
         <div class="col-lg-8">
             <div class="d-flex justify-content-between align-items-center">
@@ -35,10 +37,11 @@
             <div class="row">
                  @for (recipe of allRecipes; track $index){
                 <div class="col-lg-4">
-                <div class="p-3">
+                <div  (click)="navigateView(recipe._id)"  class="p-3">
                     <img [src]="recipe.image" class="card-img-top" alt="recipe">
                     <div class="card-body">
                         <div class="card-title">{{recipe.name}}</div>
+                        <p>Cuisine:{{recipe.cuisine}}</p>
                     </div>
                 </div>
             </div>}
