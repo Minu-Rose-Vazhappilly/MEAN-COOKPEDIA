@@ -3,22 +3,27 @@ import { HeaderComponent } from "../header/header.component";
 import { FooterComponent } from "../footer/footer.component";
 import { ApiServiceService } from '../services/api-service.service';
 import { Router } from '@angular/router';
+import { SearchPipe } from '../pipes/search.pipe';
+import { FormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-recipes',
-  imports: [HeaderComponent, FooterComponent],
+  imports: [HeaderComponent, FooterComponent,SearchPipe,FormsModule,NgxPaginationModule],
   templateUrl: './recipes.component.html',
   styleUrl: './recipes.component.css'
 })
 export class RecipesComponent {
 
   //property
+  p:number = 1
   allRecipes:any = []
   dummyAllRecipe:any = []
   router=inject(Router)
   api = inject(ApiServiceService)
   cuisineArray:any = []
   mealTypeArray:any = []
+  searchKey:string=""
   //constructor
   //lifecyclemethod
   ngOnInit(){

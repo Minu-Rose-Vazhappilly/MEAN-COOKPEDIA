@@ -16,5 +16,10 @@ export class ApiServiceService {
      return this.http.get(`${this.serverUrl}/recipes/all`)
 
   }
+  //register
+  registerAPI(reqBody:any){
+     return this.http.post(`${this.serverUrl}/register`,reqBody)
+
+  }
 
 }
