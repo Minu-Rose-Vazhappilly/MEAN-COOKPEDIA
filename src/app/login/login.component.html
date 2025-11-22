@@ -14,7 +14,7 @@
                     <h1>Login</h1>
                     <p >More than 100 plus Recipes from around the world</p>
                 </div>
-                <form class="shadow mt-5 p-5 mb-5 bg-body-transparent rounded">
+                <form (ngSubmit)="login()" [formGroup]="loginForm" class="shadow mt-5 p-5 mb-5 bg-body-transparent rounded">
                    <div class="d-flex justify-content-center align-items-center"> 
                     <div class="d-flex justify-content-center align-items-center mb-4">
                         <div class="me-3"><i class="fa-solid fa-graduation-cap fa-2xl " ></i></div>
@@ -22,16 +22,26 @@
                     </div>
                     </div>
                    
-                    <div class="mb-3">
+                   <div class="mb-3">
 
-                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="E-mail"
+                        <input type="email" formControlName="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="E-mail"
                             aria-describedby="emailHelp">
 
                     </div>
+                     @if (loginForm.get('email')?.errors && loginForm.get('email')?.touched) {
+                        <div class="mb-3 text-danger">
+                            *Invalid email
+                        </div>
+                    }
                     <div class="mb-3">
 
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="password">
+                        <input type="password" formControlName="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="password">
                     </div>
+                    @if (loginForm.get('password')?.errors && loginForm.get('password')?.touched) {
+                        <div class="mb-3 text-danger">
+                            *Invalid password
+                        </div>
+                    }
                    
                     
                     <div class=""><button type="submit" class="w-100 btn bg-success text-white">Login</button></div>

@@ -1,11 +1,53 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ApiServiceService } from '../services/api-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+
+  loginForm:FormGroup
+  api=inject(ApiServiceService)
+  router=inject(Router)
+  constructor(private fb:FormBuilder){
+    this.loginForm = this.fb.group({
+      email:["",[Validators.required,Validators.email]],
+      password:["",[Validators.required,Validators.pattern('[a-zA-Z0-9]*')]]
+    })
+
+  }
+
+  login(){
+
+    if(this.loginForm.valid){
+      const email = this.loginForm.value.email
+      const password = this.loginForm.value.password
+      this.api.loginAPI({email,password}).subscribe({
+
+        next:(res:any)=>{
+          sessionStorage.setItem("token",res.token)
+          sessionStorage.setItem("user",JSON.stringify(res.user))
+          alert("Login Successful")
+          res.user.role=="user" ? this.router.navigateByUrl('/') : this.router.navigateByUrl('')
+          this.loginForm.reset()
+        },
+        error:(reason:any)=>{
+          alert(reason.error)
+          this.loginForm.reset()
+          
+        }
+
+      })
+
+    }else{
+      alert("Invalid Form")
+    }
+
+  }
 
 }

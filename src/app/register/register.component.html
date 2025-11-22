@@ -11,7 +11,7 @@
             <div class="col-md-1"></div>
             <div class="col-md-5">
                 
-                <form class="shadow mt-5 p-5 mb-5 bg-body-transparent rounded">
+                <form (ngSubmit)="register()" [formGroup]="registerForm" class="shadow mt-5 p-5 mb-5 bg-body-transparent rounded">
                    <div class="d-flex justify-content-center align-items-center"> 
                     <div class="d-flex justify-content-center align-items-center mb-4">
                         <div class="me-3"><i class="fa-solid fa-graduation-cap fa-2xl " ></i></div>
@@ -20,22 +20,36 @@
                     </div>
                     <div class="mb-3">
 
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Username"
+                        <input type="text" formControlName="username" name="username" class="form-control" id="exampleInputEmail1" placeholder="Username"
                             aria-describedby="emailHelp">
 
                     </div>
+                    @if (registerForm.get('username')?.errors && registerForm.get('username')?.touched) {
+                        <div class="mb-3 text-danger">
+                            *Invalid Username
+                        </div>
+                    }
                    
                     <div class="mb-3">
 
-                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="E-mail"
+                        <input type="email" formControlName="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="E-mail"
                             aria-describedby="emailHelp">
 
                     </div>
+                     @if (registerForm.get('email')?.errors && registerForm.get('email')?.touched) {
+                        <div class="mb-3 text-danger">
+                            *Invalid email
+                        </div>
+                    }
                     <div class="mb-3">
 
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="password">
+                        <input type="password" formControlName="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="password">
                     </div>
-                   
+                    @if (registerForm.get('password')?.errors && registerForm.get('password')?.touched) {
+                        <div class="mb-3 text-danger">
+                            *Invalid password
+                        </div>
+                    }
                     
                     <div class=""><button type="submit" class="w-100 btn bg-success text-white">Register</button></div>
                 </form>
