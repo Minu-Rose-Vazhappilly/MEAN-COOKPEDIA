@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { RouterLink } from "@angular/router";
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -8,5 +8,24 @@ import { RouterLink } from "@angular/router";
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
+
+
+  isLoggedin:boolean = false
+  loginUsername:string = ""
+  router = inject(Router)
+
+  ngOnInit(){
+    if(sessionStorage.getItem("token") && sessionStorage.getItem("user")){
+      this.isLoggedin = true
+      this.loginUsername = JSON.parse(sessionStorage.getItem("user") || "")?.username.split(" ")[0]
+    }
+  }
+
+  logout(){
+    sessionStorage.clear()
+    this.isLoggedin = false
+    this.loginUsername = ""
+    this.router.navigateByUrl('/')
+  }
 
 }
