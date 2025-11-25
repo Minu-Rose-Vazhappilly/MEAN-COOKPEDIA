@@ -7,7 +7,8 @@
     
     <!-- Recipe Title -->
     <div class="container mt-3">
-      <h2 class="text-center fw-bold">Vegetarian Stir-Fry</h2>
+      <h2 class="text-center fw-bold">{{recipe.name
+}}</h2>
     </div>
     
     <!-- Main Section -->
@@ -16,63 +17,60 @@
         
         <!-- Left Image -->
         <div class="col-lg-6">
-          <img src="https://www.acouplecooks.com/wp-content/uploads/2023/01/Red-Sauce-Pasta-008.jpg" class="img-fluid rounded shadow" alt="Vegetarian Stir Fry" />
+          <img [src]="recipe.
+image" class="img-fluid rounded shadow" alt="Vegetarian Stir Fry" />
         </div>
         
         <!-- Right Description -->
         <div class="col-lg-6">
           
           <div class="d-flex justify-content-between flex-wrap mb-4">
-            <p><strong>Cuisine :</strong> Asian</p>
-            <p><strong>Servings :</strong> 3</p>
-            <p><strong>Mode of Cooking :</strong> Medium</p>
+            <p><strong>Cuisine :</strong> {{recipe.cuisine}}</p>
+            <p><strong>Servings :</strong>{{recipe.servings
+}} </p>
+            <p><strong>Mode of Cooking :</strong> {{recipe.
+difficulty}}</p>
           </div>
     
           <div class="row text-center mb-4">
             <div class="col-6 col-md-4">
               <i class="fa-solid fa-clock fa-2xl"></i>
               <p class="fw-bold mb-0">Preparation Time</p>
-              <p class="text-danger fw-bold">15 Minutes</p>
+              <p class="text-danger fw-bold">{{recipe.
+prepTimeMinutes}} Minutes</p>
             </div>
             <div class="col-6 col-md-4">
               <i class="bi bi-hourglass-split fs-1"></i>
               <p class="fw-bold mb-0">Cooking Time</p>
-              <p class="text-danger fw-bold">20 Minutes</p>
+              <p class="text-danger fw-bold">{{recipe.cookTimeMinutes}} Minutes</p>
             </div>
             <div class="col-12 col-md-4 mt-3 mt-md-0">
               <i class="fa-solid fa-utensils fa-2xl"></i>
               <p class="fw-bold mb-0">Calorie Per Servings</p>
-              <p class="text-danger fw-bold">250 kcal</p>
+              <p class="text-danger fw-bold">{{recipe.caloriesPerServing
+}} kcal</p>
             </div>
           </div>
     
           <h5 class="fw-bold">Ingredients Needed</h5>
           <ol class="mb-4">
-            <li>Tofu, cubed</li>
-            <li>Broccoli florets</li>
-            <li>Carrots, sliced</li>
-            <li>Bell peppers, sliced</li>
-            <li>Soy sauce</li>
-            <li>Ginger, minced</li>
-            <li>Garlic, minced</li>
-            <li>Sesame oil</li>
-            <li>Cooked rice for serving</li>
+            @for (recipe
+ of recipe.ingredients; track $index) {<li>{{recipe}}</li>} 
+            
           </ol>
     
           <h5 class="fw-bold">Cooking Instruction</h5>
           <ol>
-            <li>In a wok, heat sesame oil over medium-high heat.</li>
-            <li>Add minced ginger and garlic, sauté until fragrant.</li>
-            <li>Add cubed tofu and stir-fry until golden brown.</li>
-            <li>Add broccoli, carrots, and bell peppers. Cook until vegetables are tender-crisp.</li>
-            <li>Pour soy sauce over the stir-fry and toss to combine.</li>
-            <li>Serve over cooked rice.</li>
+            @for (recipe of recipe.instructions
+; track $index) {<li>{{recipe}}</li>}
+            
+            
           </ol>
     
           <!-- Buttons -->
           <div class="mt-4 d-flex gap-3">
-            <button class="btn btn-success px-4">Download Recipe</button>
-            <button class="btn btn-primary px-4">Save Recipe</button>
+            <button (click)="addToDownload()"  class="btn btn-success px-4">Download Recipe</button>
+            <button class="btn btn-primary px-4"><a href="recipe/save" class="text-white">Save Recipe</a></button>
           </div>
     
         </div>
@@ -83,14 +81,19 @@
     <div class="container mt-5">
       <h4 class="fw-bold">Related Recipes</h4>
       <div class="row mt-3">
-        <div class="col-6 col-sm-4 col-md-3">
-          <div class="card border-0">
-            <img src="https://png.pngtree.com/png-vector/20240314/ourmid/pngtree-beef-and-vegetables-stir-fry-in-black-plate-png-image_11964630.png" class="card-img-top rounded" alt="" width="120px" height="120px">
+        
+          @for (related of relatedRecipe; track $index) {
+            <div class="col-6 col-sm-4 col-md-3">
+            <div routerLink="/recipes/{{related._id}}/view" class="card border-0">
+            <img [src]="related.image"
+ class="card-img-top rounded" alt="" width="120px" height="120px">
             <div class="card-body px-0">
-              <p class="fw-bold mb-0">Beef and Broccoli Stir-Fry</p>
+              <p class="fw-bold mb-0">{{related.name}}</p>
             </div>
           </div>
-        </div>
+          </div>
+          } 
+        
       </div>
     </div>
 </div>

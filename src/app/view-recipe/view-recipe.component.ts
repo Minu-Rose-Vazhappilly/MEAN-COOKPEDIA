@@ -1,12 +1,15 @@
+
 import { Component, inject } from '@angular/core';
 import { HeaderComponent } from "../header/header.component";
 import { FooterComponent } from "../footer/footer.component";
 import { ApiServiceService } from '../services/api-service.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import autoTable from 'jspdf-autotable'
+import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-view-recipe',
-  imports: [HeaderComponent, FooterComponent],
+  imports: [HeaderComponent, FooterComponent, RouterLink],
   templateUrl: './view-recipe.component.html',
   styleUrl: './view-recipe.component.css'
 })
@@ -17,7 +20,8 @@ export class ViewRecipeComponent {
   api=inject(ApiServiceService)
   route = inject(ActivatedRoute)
   relatedRecipe:any = []
-
+  
+  
   ngOnInit(){
     //get dynamic id from url
     this.route.params.subscribe((res:any)=>{
@@ -57,6 +61,23 @@ getRelatedRecipe(cuisine:any){
       this.relatedRecipe = []
     }
   })
+}
+
+addToDownload(){
+  this.api.addToDownloadAPI(this.recipe).subscribe((res:any)=>{
+    this.downloadRecipe()
+  })
+}
+
+downloadRecipe(){
+  let pdf = new jsPDF;
+  let headRow = ['Name','Cuisisne','Servings','Ingredients','Instructions']
+  let bodyData = [this.recipe.name,this.recipe.cuisine,this.recipe.servings,this.recipe.ingredients,this.recipe.instructions]
+  autoTable(pdf,{
+    head:[headRow],
+    body:[bodyData]
+  })
+  pdf.save('recipe.pdf')
 }
 
 }
